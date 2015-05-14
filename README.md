@@ -98,7 +98,7 @@ views/form.erb will be rendered (notice not form.html.erb).
 adds HTML form methods (for example: form, label, input, select, and submit) that
 makes it relatively easy to create an erb form.
 
-For an example:
+For example:
 
     <%= form('form', :post) %>
 
@@ -124,4 +124,37 @@ As with rails, the attributes passed to the app, are packaged up in a params
 object. In the above example, the response is simply a display of the contents
 of this object.
 
+### Passing variables via the url
 
+Lets pass a variable in and add it to the application log. The log action does
+just that:
+
+    get '/log/:message' do
+      logger.info "Log action message: #{params[:message]}"
+      "Message '#{params[:message]}' added to log"
+    end
+
+Notice that :message in the route url causes the text entered at this point
+in the url, to be passed to params[:message]
+
+If we then point the browser at http://localhost:9292/log/foo the following
+message should appear in the log:
+
+    INFO -- : Log action message: foo
+
+### Logging to a file
+
+Logs are usually sent to the standard output of the rack server via stdout and
+stderr (the standard linux output streams).
+
+However, for myapp, I want the log output to go to a file log/my_app.log. To
+do that I add the following code to config.ru:
+
+    log = File.new("log/my_app.log", "a+")
+    $stdout.reopen(log)
+    $stderr.reopen(log)
+
+    $stderr.sync = true
+    $stdout.sync = true
+
+(In the code at main/config.ru these lines are commented out.
