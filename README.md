@@ -92,6 +92,17 @@ The form action uses a view:
 When the browser is pointed at http://localhost:9292/form, the template at
 views/form.erb will be rendered (notice not form.html.erb).
 
+#### Layouts
+
+With a dynamic website, pages often share content. For example the HTML header
+and basic framework can be easily shared across pages. To enable this it is
+common to use a layout.
+
+If you include a layout.erb file within views, it will act as a layout for the
+rest of your pages, and will used as the default layout.
+
+See main/lib/views/layout.erb
+
 ### Sinatra::FormHelpers
 
 [Sinatra::FormHelpers](https://rubygems.org/gems/sinatra-formhelpers/versions/0.4.0)
