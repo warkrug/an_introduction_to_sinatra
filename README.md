@@ -77,5 +77,51 @@ To run the app, use the command *rackup*. Note that the app will now be
 hosted on port 9292, that is your browser now needs to pointed at
 http://localhost:9292/
 
+### Views
+
+Sinatra supports views (html templated). The default location to host the templates
+is in a /views folder (relative to that app). Sinatra supports a number of
+template formats including erb which is used in MyApp.
+
+The form action uses a view:
+
+    get '/form' do
+      erb :form
+    end
+
+When the browser is pointed at http://localhost:9292/form, the template at
+views/form.erb will be rendered (notice not form.html.erb).
+
+### Sinatra::FormHelpers
+
+[Sinatra::FormHelpers](https://rubygems.org/gems/sinatra-formhelpers/versions/0.4.0)
+adds HTML form methods (for example: form, label, input, select, and submit) that
+makes it relatively easy to create an erb form.
+
+For an example:
+
+    <%= form('form', :post) %>
+
+    <p>
+      <%= label(:message, :text, 'Message text') %><br>
+      <%= input(:message, :text) %>
+    </p>
+
+    <p><%= submit('Send message') %></p>
+
+    </form>
+
+Notice that the form has to be closed manually with a </form> tag.
+
+The form is submitted via a post. Therefore a route needs to be
+present to handle that post action.
+
+    post '/form' do
+      params.inspect
+    end
+
+As with rails, the attributes passed to the app, are packaged up in a params
+object. In the above example, the response is simply a display of the contents
+of this object.
 
 
