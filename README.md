@@ -191,3 +191,48 @@ For example:
      => [MyApp, Sinatra::Application, Sinatra::FormHelpers, Sinatra::Base, Sinatra::Templates, Sinatra::Helpers, Rack::Utils, Object, Kernel, BasicObject]
     1.9.3-p547 :002 > exit
 
+#### rdoc documentation
+
+The following additions to Rakefile add the facility to build rdoc documentation
+from the app code:
+
+    require 'rake/clean'
+    require 'rdoc/task'
+
+    Rake::RDocTask.new do |rdoc|
+      files =['lib/**/*.rb']
+      rdoc.rdoc_files.add(files)
+      rdoc.title = "An Introduction to Sinatra Docs"
+      rdoc.rdoc_dir = 'doc/rdoc' # rdoc output folder
+      rdoc.options << '--line-numbers'
+    end
+
+To run the task use the command *rake rdoc*
+
+This will create documentation at doc/rdoc. See my presentation
+[Documenting your projects](https://github.com/warkrug/documenting_your_projects)
+for more information on creating rdoc friendly code.
+
+#### running tests
+
+The following code adds the facility of running tests via the rake command.
+
+    require 'rake/testtask'
+
+    Rake::TestTask.new do |t|
+      t.libs << 'lib'
+      t.libs << "test"
+      t.pattern = 'test/**/*_test.rb'
+      t.verbose = false
+    end
+
+The command *rake test* will run the tests.
+
+See the Tests section below.
+
+#### Adding a default task
+
+The following command make the test task the default task. That is, the task
+run if you just enter *rake* and the command line.
+
+    task :default => :test
