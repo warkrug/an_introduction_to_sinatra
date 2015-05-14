@@ -45,12 +45,12 @@ MyApp
 MyApp is the main Sinatra app used in the rest of this presentation. The code
 associated with MyApp can be found in main/.
 
-h3. lib
+### lib
 
 The app code is in a lib folder. This makes it easier to package
 the code in a gem if that's needed later down the line.
 
-h3. Sinatra::Application and Sinatra::Base
+### Sinatra::Application and Sinatra::Base
 
 Using Sinatra::Application allows the application to be hosted by rack. That
 makes it a lot easier to host the app in the same production environment as
@@ -65,7 +65,7 @@ hosted within a MyApp class defined with:
 
     class MyApp < Sinatra::Application
 
-h3. Rackup
+### Rackup
 
 To run the app via rack, a config.ru file needs to be created at the app
 root. Such a file with this content is enough to get the app up:
