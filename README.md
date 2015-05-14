@@ -158,3 +158,36 @@ do that I add the following code to config.ru:
     $stdout.sync = true
 
 (In the code at main/config.ru these lines are commented out.
+
+### Rake commands
+
+rake is a useful system for giving an app extra command line functionality.
+Some useful utilities can be added to a Sinatra app by add a Rakefile in
+which rake commands can be defined.
+
+#### A console
+
+Whilst developing and debugging an app, it is useful to be able to access
+a command with the apps objects enabled. The following code in Rakefile enables
+this:
+
+    require 'rubygems'
+    require 'rake'
+
+    task :console do
+      require 'irb'
+      require 'irb/completion'
+      require './lib/my_app'
+      ARGV.clear
+      IRB.start
+    end
+
+To access the console enter *rake console*
+
+For example:
+
+    rob@robvm:~/main$ rake console
+    1.9.3-p547 :001 > MyApp.ancestors
+     => [MyApp, Sinatra::Application, Sinatra::FormHelpers, Sinatra::Base, Sinatra::Templates, Sinatra::Helpers, Rack::Utils, Object, Kernel, BasicObject]
+    1.9.3-p547 :002 > exit
+
