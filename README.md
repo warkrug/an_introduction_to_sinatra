@@ -33,7 +33,7 @@ You should see output something like this:
 If you point you browser at http://localhost:4567 you should see the 'Hello World'
 message.
 
-To close the server us ctrl-C.
+To close the server use ctrl-C.
 
 Enabling changes
 ----------------
@@ -79,8 +79,8 @@ http://localhost:9292/
 
 ### Views
 
-Sinatra supports views (html templated). The default location to host the templates
-is in a /views folder (relative to that app). Sinatra supports a number of
+Sinatra supports views (html templates). The default location to host the templates
+is in a /views folder (relative to the app). Sinatra supports a number of
 template formats including erb which is used in MyApp.
 
 The form action uses a view:
@@ -126,7 +126,7 @@ of this object.
 
 ### Passing variables via the url
 
-Lets pass a variable in and add it to the application log. The log action does
+Let's pass a variable in and add it to the application log. The log action does
 just that:
 
     get '/log/:message' do
@@ -157,19 +157,18 @@ do that I add the following code to config.ru:
     $stderr.sync = true
     $stdout.sync = true
 
-(In the code at main/config.ru these lines are commented out.
+(In the code at main/config.ru these lines are commented out.)
 
 ### Rake commands
 
-rake is a useful system for giving an app extra command line functionality.
-Some useful utilities can be added to a Sinatra app by add a Rakefile in
+Some useful utilities can be added to a Sinatra app by adding a Rakefile in
 which rake commands can be defined.
 
 #### A console
 
 Whilst developing and debugging an app, it is useful to be able to access
-a command with the apps objects enabled. The following code in Rakefile enables
-this:
+a command console with the apps objects enabled. The following code in Rakefile
+enables this:
 
     require 'rubygems'
     require 'rake'
