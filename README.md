@@ -236,3 +236,46 @@ The following command make the test task the default task. That is, the task
 run if you just enter *rake* and the command line.
 
     task :default => :test
+
+### Tests
+
+A test helper makes it simple to use a shared environment across all your
+apps. test/test_helper.rb defines this environment:
+
+    ENV['RACK_ENV'] = 'test'
+
+    require 'test/unit'
+    require 'rack/test'
+
+    require 'my_app'
+
+    class Test::Unit::TestCase
+
+      def app
+        MyApp
+      end
+
+    end
+
+With that in place, the test at test/my_app/my_app_test.rb just needs
+to require 'test_helper' to use the shared environment. The rest of the
+test then runs when the *rake test* rake task is run.
+
+    require 'test_helper'
+
+    class MyAppTest < Test::Unit::TestCase
+      include Rack::Test::Methods
+
+      def test_root
+        get '/'
+        assert last_response.ok?
+        assert_match /Hello world/, last_response.body
+      end
+
+    end
+
+This is a standard ruby unit test. Including Rack::Test::Methods adds
+methods to facilitate tests of the Sinatra functionality. In this case the
+get and last_response method. Notice that the app method needs to return
+the main sinatra app and that this was done for all tests by defining it
+in test_helper.
