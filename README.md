@@ -232,7 +232,7 @@ See the Tests section below.
 #### Adding a default task
 
 The following command make the test task the default task. That is, the task
-run if you just enter *rake* and the command line.
+run if you just enter *rake* at the command line.
 
     task :default => :test
 
@@ -258,7 +258,7 @@ apps. test/test_helper.rb defines this environment:
 
 With that in place, the test at test/my_app/my_app_test.rb just needs
 to require 'test_helper' to use the shared environment. The rest of the
-test then runs when the *rake test* rake task is run.
+test then runs on *rake test*.
 
     require 'test_helper'
 
@@ -275,6 +275,19 @@ test then runs when the *rake test* rake task is run.
 
 This is a standard ruby unit test. Including Rack::Test::Methods adds
 methods to facilitate tests of the Sinatra functionality. In this case the
-get and last_response method. Notice that the app method needs to return
+get and last_response methods. Notice that the app method needs to return
 the main sinatra app and that this was done for all tests by defining it
 in test_helper.
+
+### Gemfile
+
+Bundler can be used to manage an applications gem requirement. A Gemfile
+with the following content would be sufficient for MyApp:
+
+    source 'https://rubygems.org'
+
+    gem 'sinatra'
+    gem 'sinatra-formhelpers-ng'
+
+To install the gems, use the command *bundle*
+
